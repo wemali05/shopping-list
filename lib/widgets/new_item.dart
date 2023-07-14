@@ -11,10 +11,6 @@ class NewItem extends StatefulWidget {
 }
 
 class _NewItemState extends State<NewItem> {
-//  final _formKey = GlobalKey<FormState>();
-//   String _name = '';
-//   String _email = '';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,11 +63,25 @@ class _NewItemState extends State<NewItem> {
                             ),
                           ),
                       ],
-                      onChanged: (value) {
-
-                      },
+                      onChanged: (value) {},
                     ),
                   )
+                ],
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('Reset'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text('Add Item'),
+                  ),
                 ],
               )
             ],
@@ -81,15 +91,3 @@ class _NewItemState extends State<NewItem> {
     );
   }
 }
-
- // children: [
-            //   TextFormField(
-            //     maxLength: 50,
-            //     decoration: InputDecoration(
-            //       label: Text('Name'),
-            //     ),
-            //     // validator: () {
-            //     //   return 'Demo...';
-            //     // },
-            //   ),
-            //  
