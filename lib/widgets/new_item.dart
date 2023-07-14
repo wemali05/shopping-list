@@ -26,7 +26,15 @@ class _NewItemState extends State<NewItem> {
                 decoration: const InputDecoration(
                   labelText: 'Name',
                 ),
-                validator: (value) {},
+                validator: (value) {
+                  if (value == null ||
+                      value.isEmpty ||
+                      value.trim().length <= 1 ||
+                      value.trim().length > 50) {
+                    return 'Must be between 1 to 50 characters';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16.0),
               Row(
@@ -34,9 +42,19 @@ class _NewItemState extends State<NewItem> {
                 children: [
                   Expanded(
                     child: TextFormField(
-                      decoration:
-                          const InputDecoration(label: Text('Quantity')),
+                      decoration: const InputDecoration(
+                        label: Text('Quantity'),
+                      ),
                       initialValue: '1',
+                      validator: (value) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            int.tryParse(value) == 0 ||
+                            int.tryParse(value)! <= 0) {
+                          return 'Must be between 1 to 50 characters';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   const SizedBox(
