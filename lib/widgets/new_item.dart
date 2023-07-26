@@ -20,7 +20,7 @@ class _NewItemState extends State<NewItem> {
   var _enteredQuantity = 1;
   var _selectecCategory = categories[Categories.vegetables]!;
 
-  void _saveItem () async {
+  void _saveItem() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       final url = Uri.https('flutter-prep-e946b-default-rtdb.firebaseio.com',
@@ -40,15 +40,21 @@ class _NewItemState extends State<NewItem> {
         ),
       );
 
+      final Map<String, dynamic> resData = json.decode(response.body);
+      // print(response.body);
+      // print(response.statusCode);
 
-      print(response.body);
-      print(response.statusCode);
-
-      if(!context.mounted) {
+      if (!context.mounted) {
         return;
       }
 
-      Navigator.of(context).pop();
+      Navigator.of(context).pop(
+        GroceryItem(
+            id: resData['name'],
+            name: _enteredName,
+            quantity: _enteredQuantity,
+            category: _selectecCategory),
+      );
 
       // Navigator.of(context).pop(
       //   GroceryItem(
