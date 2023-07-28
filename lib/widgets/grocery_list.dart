@@ -25,7 +25,7 @@ class _GroceryListState extends State<GroceryList> {
 
   void _loidItems() async {
     final url = Uri.https(
-        'abc.firebaseio.com', 'shopping-list.json');
+        'flutter-prep-e946b-default-rtdb.firebaseio.com', 'shopping-list.json');
 
     final response = await http.get(url);
     final Map<String, dynamic> listData = json.decode(response.body);
@@ -33,7 +33,7 @@ class _GroceryListState extends State<GroceryList> {
 
     if (response.statusCode >= 400) {
       setState(() {
-           _error = 'Failed to fetch Data. Please try again later.';
+        _error = 'Failed to fetch Data. Please try again later.';
       });
     }
 
@@ -69,10 +69,23 @@ class _GroceryListState extends State<GroceryList> {
     });
   }
 
-  void _removeItem(GroceryItem item) {
+  void _removeItem(GroceryItem item) async {
+    final index = _groceryItems.indexOf(item);
     setState(() {
       _groceryItems.remove(item);
     });
+
+    final url = Uri.https('flutter-prep-e946b-default-rtdb.firebaseio.com',
+        'shopping-list/${item.id}.json');
+
+    final response = await http.delete(url);
+
+    if (response.statusCode >= 400) {
+      //Optional : show error message
+      setState(() {
+        _groceryItems.insert(index, item);
+      });
+    }
   }
 
   @override
